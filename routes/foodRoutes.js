@@ -5,14 +5,14 @@ import {
     createFoodItem,
     updateFoodItem,
     deleteFoodItem
-} from '../controllers/foodController';
+} from '../controllers/foodController.js';
 import { 
     validateCreateFoodItem,
     validateUpdateFoodItem,
     validateFoodItemId,
     handleValidationErrors
-} from '../middlewares/validation';
-import authenticate from '../middlewares/auth';
+} from '../middlewares/validation.js';
+import {authenticate} from '../middlewares/auth.js';
 const router = express.Router();
 
 // ====================== PUBLIC ROUTES ======================

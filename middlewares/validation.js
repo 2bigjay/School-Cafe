@@ -2,29 +2,51 @@ import { body, param, validationResult } from 'express-validator';
 
 // For creating food item
 export const validateCreateFoodItem = [
-    body('name').trim().notEmpty().withMessage('Food name is required'),
-    body('price').isFloat({ min: 0 }).withMessage('Price must be a positive number'),
-    body('category').trim().notEmpty().withMessage('Category is required')
+    body('name')
+    .trim()
+    .notEmpty()
+    .withMessage('Food name is required'),
+    body('price')
+    .isFloat({ min: 0 })
+    .withMessage('Price must be a positive number'),
+    body('category')
+    .trim()
+    .notEmpty()
+    .withMessage('Category is required')
 ];
 
 //  For creating order
 export const validateCreateOrder = [
-    body('studentId').isMongoId().withMessage('Valid student ID is required'),
-    body('items').isArray({ min: 1 }).withMessage('Order must contain at least one item'),
-    body('items.*.foodItem').isMongoId().withMessage('Valid foodItem ID is required'),
-    body('items.*.quantity').isInt({ min: 1 }).withMessage('Quantity must be at least 1')
+    body('studentId')
+    .isMongoId()
+    .withMessage('Valid student ID is required'),
+    body('items')
+    .isArray({ min: 1 })
+    .withMessage('Order must contain at least one item'),
+    body('items.*.foodItem')
+    .isMongoId()
+    .withMessage('Valid foodItem ID is required'),
+    body('items.*.quantity')
+    .isInt({ min: 1 })
+    .withMessage('Quantity must be at least 1')
 ];
 
 //  For updating order status
 export const validateUpdateOrderStatus = [
     body('status')
-        .isIn(['Pending', 'Preparing', 'Ready', 'Completed', 'Cancelled'])
+        .isIn(['Pending', 
+            'Preparing', 
+            'Ready', 
+            'Completed', 
+            'Cancelled'])
         .withMessage('Invalid order status')
 ];
 
 //  For any route that uses /:id (get, update, delete food item)
 export const validateFoodItemId = [
-    param('id').isMongoId().withMessage('Invalid food item ID format')
+    param('id')
+    .isMongoId()
+    .withMessage('Invalid food item ID format')
 ];
 
 // Validation for updating food item
@@ -88,6 +110,55 @@ export const validateUpdateAttendant = [
         .withMessage('Staff ID cannot be empty if provided')
         .isLength({ min: 3 })
         .withMessage('Staff ID must be at least 3 characters')
+];
+
+// ====================== CREATE STUDENT VALIDATION ======================
+export const validateCreateStudent = [
+    body('name')
+        .trim()
+        .notEmpty()
+        .withMessage('Student name is required')
+        .isLength({ min: 2 })
+        .withMessage('Name must be at least 2 characters long'),
+
+    body('email')
+        .trim()
+        .notEmpty()
+        .withMessage('Email is required')
+        .isEmail()
+        .withMessage('Please provide a valid email address'),
+
+    body('studentId')
+        .trim()
+        .notEmpty()
+        .withMessage('Student ID is required')
+        .isLength({ min: 3 })
+        .withMessage('Student ID must be at least 3 characters long')
+];
+
+// ====================== UPDATE STUDENT VALIDATION ======================
+export const validateUpdateStudent = [
+    body('name')
+        .optional()
+        .trim()
+        .notEmpty()
+        .withMessage('Student name cannot be empty if provided')
+        .isLength({ min: 2 })
+        .withMessage('Name must be at least 2 characters long'),
+
+    body('email')
+        .optional()
+        .trim()
+        .isEmail()
+        .withMessage('Please provide a valid email address'),
+
+    body('studentId')
+        .optional()
+        .trim()
+        .notEmpty()
+        .withMessage('Student ID cannot be empty if provided')
+        .isLength({ min: 3 })
+        .withMessage('Student ID must be at least 3 characters long')
 ];
 
 // ====================== REGISTER VALIDATION ======================

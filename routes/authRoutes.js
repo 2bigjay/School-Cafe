@@ -4,7 +4,7 @@ import {
     validateLogin,
     handleValidationErrors
 } from '../middlewares/validation.js'
-import {register, login} from '../controllers/authController';
+import {register, login} from '../controllers/authController.js';
 const router = express.Router();
 
 // register new staff

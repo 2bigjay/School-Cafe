@@ -21,7 +21,7 @@ import attendantRoutes from './routes/attendantRoutes.js';
 import foodRoutes from './routes/foodRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import studentRoutes from './routes/studentRoutes.js';
-import reportRoutes from './routes/reportRoutes';
+import reportRoutes from './routes/reportRoutes.js';
 
 //API routes
 app.use("/api/auth", authRoutes);

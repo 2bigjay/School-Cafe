@@ -1,11 +1,31 @@
-import CafeteraiAttendant from '../models/CafeteriaAttendant';
+import CafeteriaAttendant from '../models/CafeteriaAttendant.js';
 
 //Create a new attendant
 export const createAttendant = async (req, res) => {
     try {
-        const attendant = await CafeteriaAttendant.create(req.body);
+        const {name, staffId, password} = req.body;
 
-        req.status(201).json(attendant);
+        const existingAttendant = await CafeteriaAttendant.findOne({ staffId });
+
+        if (existingAttendant) {
+            return res.status(400).json({
+                message: 'Attendant with this staff ID already exists'
+            });
+        }
+
+        //Hash Password
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
+        const attendant = await CafeteriaAttendant.create({
+            name,
+            staffId,
+            password: hashedPassword
+        });
+
+        await attendant.save();
+
+        res.status(201).json(attendant);
     } catch (err) {
         res.status(500).json({
             error: 'Server error'
@@ -14,7 +34,7 @@ export const createAttendant = async (req, res) => {
 };
 
 //Get all attendants
-export const getAllAtendant = async (rq, res) => {
+export const getAllAttendant = async (rq, res) => {
     try {
         const attendants = await CafeteriaAttendant.find();
         res.status(attendants);
@@ -52,7 +72,11 @@ export const getAttendantById = async (req, res) => {
 // Update an attendant
 export const updateAttendant = async (req, res) => {
     try { 
-        const attendant = await CafeteriaAttendant.findByIdAndUpdate(req.params.id, req.body);
+        const attendant = await CafeteriaAttendant.findByIdAndUpdate(
+            req.params.id, 
+            req.body,
+            { new: true }
+        );
 
         if (!attendant) {
             return res.status(404).json({

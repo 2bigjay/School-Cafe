@@ -93,7 +93,7 @@ export const getAllOrders = async (req, res) => {
 };
 
 // Get a specific order by ID
-const getAllOrdersById = async (req, res) => {
+export const getAllOrdersById = async (req, res) => {
     try {
             const order = await Order.findById(req.params.id)
                 .populate('studentId', 'name')

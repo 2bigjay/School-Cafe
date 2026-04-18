@@ -1,4 +1,4 @@
-import mongoose from 'momgooose';
+import mongoose from 'mongoose';
 
 const CafeteriaAttendantSchema = new mongoose.Schema({
     name: {
@@ -15,6 +15,10 @@ const CafeteriaAttendantSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    password: {
+        type: String,
+        required: true
     }
 });
 

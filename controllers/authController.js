@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import jwt from 'jsonwebtoken';
-import CafeteriaAttendant from '../models/CafeteriaAttendant';
+import CafeteriaAttendant from '../models/CafeteriaAttendant.js';
 
 
 // REGISTER NEW STAFF / ATTENDANT

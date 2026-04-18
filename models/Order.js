@@ -18,6 +18,7 @@ const OrderSchema = new mongoose.Schema({
         enum: [
             'Pending',
             'In Progress',
+            'Ready',
             'Completed', 
             'Cancelled'
         ],

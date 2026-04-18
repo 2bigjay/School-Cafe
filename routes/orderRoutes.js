@@ -5,7 +5,7 @@ import {
     getAllOrdersById,
     updateOrderStatus
 } from '../controllers/OrderController.js';
-import authenticate from '../middlewares/auth.js';
+import {authenticate} from '../middlewares/auth.js';
 import {
     validateCreateOrder,
     validateUpdateOrderStatus
